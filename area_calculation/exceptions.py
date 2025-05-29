@@ -1,0 +1,2 @@
+class LibException(BaseException):
+    pass
