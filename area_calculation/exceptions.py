@@ -1,2 +1,2 @@
-class LibException(BaseException):
+class CalculationException(BaseException):
     pass

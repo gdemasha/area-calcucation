@@ -3,7 +3,7 @@ import pytest
 from contextlib import nullcontext as does_not_raise
 
 from area_calculation.library import AreaCalc
-from area_calculation.exceptions import LibException
+from area_calculation.exceptions import CalculationException
 
 
 area_calc = AreaCalc()
@@ -15,7 +15,7 @@ class TestCalculation():
         'radius, expectation',
         [
             (6, does_not_raise()),
-            ('6', pytest.raises(LibException)),
+            ('6', pytest.raises(CalculationException)),
             (234.097, does_not_raise()),
         ]
     )
@@ -32,8 +32,8 @@ class TestCalculation():
         'lengths, expectation',
         [
             ([2, 18.6, 9], does_not_raise()),
-            ('6', pytest.raises(LibException)),
-            ([3, '29', '13'], pytest.raises(LibException)),
+            ('6', pytest.raises(CalculationException)),
+            ([3, '29', '13'], pytest.raises(CalculationException)),
         ]
     )
     def test_sort_lengths(self, lengths: list[float | int], expectation):
@@ -48,7 +48,7 @@ class TestCalculation():
         [
             (3, 4, 5, does_not_raise()),
             (1, 19, 3, pytest.raises(AssertionError)),
-            ('3', '29', '13', pytest.raises(LibException)),
+            ('3', '29', '13', pytest.raises(CalculationException)),
         ]
     )
     def test_check_triangle_angle(
@@ -69,10 +69,10 @@ class TestCalculation():
         [
             ([3, 4, 5], does_not_raise()),
             ([6, 7, 5], does_not_raise()),
-            ([2, 18, 9], pytest.raises(LibException)),
-            (None, pytest.raises(LibException)),
-            ([3, '29', '13'], pytest.raises(LibException)),
-            ([3, 16, 4, 2], pytest.raises(LibException))
+            ([2, 18, 9], pytest.raises(CalculationException)),
+            (None, pytest.raises(CalculationException)),
+            ([3, '29', '13'], pytest.raises(CalculationException)),
+            ([3, 16, 4, 2], pytest.raises(CalculationException))
         ]
     )
     def test_calc_triangle_area(self, lengths: list[float | int], expectation):
@@ -93,10 +93,10 @@ class TestCalculation():
             (6, [3, 4, 5], does_not_raise()),
             (None, [3, 4, 5], does_not_raise()),
             (None, [6, 7, 5], does_not_raise()),
-            (None, [2, 18, 9], pytest.raises(LibException)),
-            ('3', [3, '29', '13'], pytest.raises(LibException)),
-            (None, [3, 16, 4, 2], pytest.raises(LibException)),
-            (None, None, pytest.raises(LibException))
+            (None, [2, 18, 9], pytest.raises(CalculationException)),
+            ('3', [3, '29', '13'], pytest.raises(CalculationException)),
+            (None, [3, 16, 4, 2], pytest.raises(CalculationException)),
+            (None, None, pytest.raises(CalculationException))
         ]
     )
     def test_calculate_area(

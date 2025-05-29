@@ -6,7 +6,7 @@ import math
 import structlog
 from typing import Optional
 
-from area_calculation.exceptions import LibException
+from area_calculation.exceptions import CalculationException
 
 
 logger = structlog.get_logger()
@@ -20,7 +20,7 @@ class AreaCalc():
             return math.pi * (radius ** 2)
         except Exception as e:
             logger.error(e)
-            raise LibException(f'calc_circle_area: error {e}')
+            raise CalculationException(f'calc_circle_area: error {e}')
 
     def sort_lengths(self, lengths: list[float | int]) -> list:
         """Function to sort lengths in ascending order."""
@@ -28,12 +28,12 @@ class AreaCalc():
             if all(isinstance(num, (int, float)) for num in lengths):
                 return sorted(lengths)
             else:
-                raise LibException(
+                raise CalculationException(
                     'All elements in lengths must be int or float'
                 )
         except Exception as e:
             logger.error(e)
-            raise LibException(f'sort_lengths: error {e}')
+            raise CalculationException(f'sort_lengths: error {e}')
 
     def check_triangle_angle(
         self,
@@ -46,7 +46,7 @@ class AreaCalc():
             return (hypotenuse ** 2 == leg_b ** 2 + leg_a ** 2)
         except Exception as e:
             logger.error(e)
-            raise LibException(f'check_triangle_angle: error {e}')
+            raise CalculationException(f'check_triangle_angle: error {e}')
 
     def calc_triangle_area(self, lengths: list[float | int]) -> float:
         """Calculate triangle's area."""
@@ -54,7 +54,7 @@ class AreaCalc():
             if len(lengths) == 3:
                 a, b, c = self.sort_lengths(lengths)
             else:
-                raise LibException('Wrong number of sides')
+                raise CalculationException('Wrong number of sides')
 
             if a + b <= c or a + c <= b or b + c <= a:
                 raise ValueError(
@@ -74,7 +74,7 @@ class AreaCalc():
                 )
         except Exception as e:
             logger.error(e)
-            raise LibException(f'calc_triangle_area: error {e}')
+            raise CalculationException(f'calc_triangle_area: error {e}')
 
     def calculate_area(
         self,
@@ -93,9 +93,9 @@ class AreaCalc():
             elif radius is not None:
                 return self.calc_circle_area(radius)
             else:
-                raise LibException(
+                raise CalculationException(
                     'No appropriate data was received to calculate an area'
                 )
         except Exception as e:
             logger.error(e)
-            raise LibException(f'calculate_area: error {e}')
+            raise CalculationException(f'calculate_area: error {e}')

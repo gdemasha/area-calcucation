@@ -14,6 +14,7 @@ setup(
     description='Library for calculating areas of geometrical figures',
     long_description=readme(),
     long_description_content_type='text/markdown',
+    url='https://github.com/gdemasha/area_calculation.git',
     packages=find_packages(),
     install_requires=[
         'structlog>=25.3.0',
@@ -24,7 +25,7 @@ setup(
     ],
     keywords='geometry calculation area figures ',
     project_urls={
-        'GitHub': 'gdemasha'
+        'GitHub': 'https://github.com/gdemasha/area_calculation.git'
     },
     python_requires='>=3.10.14'
 )
